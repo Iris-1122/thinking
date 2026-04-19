@@ -115,7 +115,7 @@
 
   /* Section headings */
   .section-label {
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 600;
     letter-spacing: 0.02em;
     color: var(--accent);
@@ -155,14 +155,14 @@
     font-size: 15px;
   }
   thead tr {
-    background: var(--bg);
+    background: #ddeaf5;
   }
   th {
     padding: 10px 14px;
     text-align: left;
     font-weight: 600;
     font-size: 13px;
-    color: var(--ink-muted);
+    color: #1e4a6e;
     border-bottom: 1px solid var(--border);
   }
   td {
@@ -172,7 +172,12 @@
     color: var(--ink);
   }
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) { background: #fdfcfa; }
+  tbody tr:nth-child(1) td:first-child { color: #1e4a6e; font-weight: 600; }
+  tbody tr:nth-child(2) td:first-child { color: #2d6a4f; font-weight: 600; }
+  tbody tr:nth-child(3) td:first-child { color: #7b4f12; font-weight: 600; }
+  tbody tr:nth-child(1) { background: #f0f6fb; }
+  tbody tr:nth-child(2) { background: #f2f9f5; }
+  tbody tr:nth-child(3) { background: #fdf6ee; }
 
   /* Blockquote / key insight */
   .insight {
@@ -332,6 +337,7 @@
     <p><strong>第三步看输入完整度：</strong>如果输入极度碎片、连关键词都模糊，大概率是纯探索状态。这时追问是雪上加霜——正确的做法是系统主动生成2-3个方向选项，把表达责任从「开口说」降低到「动手选」。</p>
     <p>推断失败，则退回兜底机制——给用户一个具体的东西去纠错，哪怕猜错了，纠错比从零表达容易得多。</p>
     <p>这套设计的核心不是把交互做得更聪明，而是让用户尽可能少开口。真正的产品差距，在于系统能不能在用户说话之前就已经进入正确轨道。</p>
+    <p>但这里有一个没有被追问的前提——为什么交互一定要发生在对话框里。当Agent技术足够成熟，这个前提本身就会瓦解。</p>
   </div>
 
   <div class="divider">二</div>
@@ -360,8 +366,8 @@
       <p>对于复杂的创造性任务，语言对话仍然是最自然的协作方式。但这时的聊天框更像共享工作空间，AI是实时在场的协作者，不是等待指令的工具。</p>
     </div>
 
-    <p>聊天框会从默认界面变成复杂任务专用界面——它不会消失，但不再是默认入口。</p>
-    <p>但形态的演化对所有人都开放。当底层模型能力趋于一致，一款AI产品凭什么让用户留下来？</p>
+    <p>三个方向会同时并行存在，根据任务类型分流。聊天框会从默认界面变成复杂任务专用界面——它不会消失，但不再是默认入口。</p>
+    <p>但形态的演化对所有人都开放。当每家产品的交互都进化到这个程度，当底层模型能力趋于一致，一款AI产品凭什么让用户留下来。</p>
   </div>
 
   <div class="divider">三</div>
