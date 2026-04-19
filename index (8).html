@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI会拍平什么，留下什么 — 李明睿</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-muted: #666;
+    --ink-light: #999;
+    --bg: #faf9f7;
+    --surface: #fff;
+    --border: #e8e5df;
+    --accent: #2c5f8a;
+    --accent-light: #e8f0f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Serif SC", Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.85;
+    font-size: 17px;
+  }
+
+  /* Header */
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+  .site-header .name {
+    font-size: 14px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+  .site-header .tag {
+    font-size: 13px;
+    color: var(--ink-light);
+    background: var(--bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  /* Layout */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* Title block */
+  .title-block {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .title-block h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .title-block .subtitle {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+  .meta .author {
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+  .meta-dot { color: var(--border); }
+
+  /* Lead paragraph */
+  .lead {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    color: var(--ink-light);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Section headings */
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  /* Body text */
+  p {
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* Table */
+  .table-wrap {
+    margin: 1.6rem 0;
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  thead tr {
+    background: var(--bg);
+  }
+  th {
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #fdfcfa; }
+
+  /* Blockquote / key insight */
+  .insight {
+    border-left: 3px solid var(--accent);
+    padding: 0.8rem 1.2rem;
+    margin: 1.8rem 0;
+    background: var(--accent-light);
+    border-radius: 0 6px 6px 0;
+  }
+  .insight p {
+    font-size: 16px;
+    color: var(--ink);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Section wrapper */
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  /* Sub-direction cards */
+  .direction {
+    margin: 1.4rem 0;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  .direction-title {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    font-size: 15px;
+  }
+  .direction p {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  /* Capability cards */
+  .cap {
+    margin: 1.4rem 0;
+    padding-left: 1.2rem;
+    border-left: 2px solid var(--border);
+  }
+  .cap-title {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .cap p {
+    font-size: 15px;
+    color: var(--ink-muted);
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  /* Closing */
+  .closing {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .closing p {
+    color: var(--ink-muted);
+    font-size: 15px;
+    margin-bottom: 0.8rem;
+  }
+  .closing .final {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 1.2rem;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 13px;
+    color: var(--ink-light);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 2.5rem 1.2rem 4rem; }
+    .title-block h1 { font-size: 1.5rem; }
+    .site-header { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="name">李明睿 · 产品思考</span>
+  <span class="tag">2026.4.18</span>
+</header>
+
+<main class="container">
+
+  <div class="title-block">
+    <h1>AI会拍平什么，留下什么</h1>
+    <p class="subtitle">一个产品视角的推演</p>
+    <div class="meta">
+      <span class="author">文 / 李明睿</span>
+      <span class="meta-dot">·</span>
+      <span>产品 · AI · 人的价值</span>
+    </div>
+  </div>
+
+  <p class="lead">当AI能在30秒内完成竞品分析、在两小时内交付一份80分的PRD、在几分钟内输出完整的用户故事——做产品的人，还剩下什么？这不是焦虑，更像是一个需要被认真推演的问题。</p>
+
+  <p>我试着从一个很具体的场景出发，顺着它往下走，会不断遇到新的问题，背后藏着一条更长的推演链——从当下产品设计，到交互形态的演化，到商业竞争的终局，最后落回人的位置。这篇文章是我沿着这条链条走下去的记录。</p>
+
+  <div class="divider">一</div>
+
+  <div class="section">
+    <div class="section-label">现在</div>
+    <h2>产品的核心不是理解用户说了什么，而是帮他发现自己要什么</h2>
+
+    <p>用户说「帮我弄个报告」，产品该怎么办？</p>
+    <p>大多数产品的第一反应是追问——「请问你需要什么类型的报告？」「面向什么受众？」——把澄清意图的责任推回给用户。但这个方向本身就错了。</p>
+    <p>用户说不清楚，不是因为懒，有时是因为他本来就不知道自己要什么。让一个不知道自己要什么的人去回答「你要什么」，只会制造摩擦，不会产生价值。</p>
+
+    <div class="insight"><p>真正的问题在于：模糊不是一种状态，是三种完全不同的状态。</p></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>模糊类型</th><th>本质</th><th>产品策略</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>会想不会说</td><td>语言能力问题</td><td>系统先猜，输出意图解读卡，让用户纠错而非从零表达</td></tr>
+          <tr><td>有目标无方案</td><td>场景理解问题</td><td>往上游走：问受众和目的，目标结构化后反推任务</td></tr>
+          <tr><td>纯探索状态</td><td>目标本身不清晰</td><td>不追问，主动生成2-3个方向选项，用选择代替表达</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>三种状态，表面上几乎无法区分——这才是真正的难点。分类不能靠单句输入判断，必须靠上下文信号的组合推断，而且推断本身有优先级。</p>
+    <p><strong>第一步看历史记录：</strong>这个用户有没有做过类似任务的痕迹？有历史、有参照，大概率是「会想不会说」，系统先给一张意图解读卡，让他纠错。</p>
+    <p><strong>第二步看时间信号：</strong>输入时间节点是否临近某个汇报或截止日？压力型输入往往属于「有目标无方案」，用户知道自己要交差，但不知道怎么组织。这时往上游问：给谁看、结论是什么，比问「什么类型报告」有效得多。</p>
+    <p><strong>第三步看输入完整度：</strong>如果输入极度碎片、连关键词都模糊，大概率是纯探索状态。这时追问是雪上加霜——正确的做法是系统主动生成2-3个方向选项，把表达责任从「开口说」降低到「动手选」。</p>
+    <p>推断失败，则退回兜底机制——给用户一个具体的东西去纠错，哪怕猜错了，纠错比从零表达容易得多。</p>
+    <p>这套设计的核心不是把交互做得更聪明，而是让用户尽可能少开口。真正的产品差距，在于系统能不能在用户说话之前就已经进入正确轨道。</p>
+  </div>
+
+  <div class="divider">二</div>
+
+  <div class="section">
+    <div class="section-label">不远的将来</div>
+    <h2>聊天框不会消失，但会从默认界面退化成专用工具</h2>
+
+    <p>现在所有AI产品的默认界面都是聊天输入框。这件事看起来理所当然，但值得追问：为什么？</p>
+    <p>答案比想象中更简单：<strong>语言是人类目前和AI沟通成本最低的共同语言。</strong>我们还不会用其他方式精确表达意图，而目前AI也还不够强到能主动感知意图，所以双方折中在一个文字输入框里——这是一种「能力不对等下的妥协界面」。</p>
+    <p>当技术足够成熟，这个能力不对等会消失。AI不再需要你用语言告诉它要什么，它能从行为、上下文、历史偏好里直接读取意图。这时候聊天框的存在理由就瓦解了。</p>
+    <p>那交互界面会演变成什么形态？不是一个新形态，而是三个方向的分裂：</p>
+
+    <div class="direction">
+      <div class="direction-title">方向一：界面消失</div>
+      <p>高频明确的任务，交互彻底隐形。AI主动感知你在做什么、需要什么，在正确时机出现，完成后退到后台。就像我们现在不需要告诉手机「我要看时间」，它的锁屏就显示时间一样。最好的界面，是没有界面。</p>
+    </div>
+
+    <div class="direction">
+      <div class="direction-title">方向二：空间化</div>
+      <p>这个方向和世界模型、具身智能直接相关。两者合在一起，交互的输入从「人主动输入语言」变成「环境和行为本身就是输入」。你在厨房看着冰箱发呆，AI看见冰箱里有什么，知道你今天的运动数据，主动说：「你今天蛋白质不够，鸡蛋和西兰花可以做这个。」输入的概念本身消解了——你的存在和行为就是输入。</p>
+    </div>
+
+    <div class="direction">
+      <div class="direction-title">方向三：深度协作界面</div>
+      <p>对于复杂的创造性任务，语言对话仍然是最自然的协作方式。但这时的聊天框更像共享工作空间，AI是实时在场的协作者，不是等待指令的工具。</p>
+    </div>
+
+    <p>聊天框会从默认界面变成复杂任务专用界面——它不会消失，但不再是默认入口。</p>
+    <p>但形态的演化对所有人都开放。当底层模型能力趋于一致，一款AI产品凭什么让用户留下来？</p>
+  </div>
+
+  <div class="divider">三</div>
+
+  <div class="section">
+    <div class="section-label">终局</div>
+    <h2>护城河不在模型，在用户舍不得离开的理由</h2>
+
+    <p>假设一个极端情况：所有AI产品的底层能力完全一致。这时候一款产品凭什么活下去？护城河有三层，深度依次递增。</p>
+
+    <h3>第一层（表层）：数据飞轮</h3>
+    <p>用得越久，系统对你的建模越准，迁移成本越高。但有一个致命弱点——如果竞品给足够强的迁移激励，比如一键导入历史数据，这层护城河就会被突破。数据飞轮是必要条件，不是充分条件。</p>
+
+    <h3>第二层（中层）：信任资产</h3>
+    <p>用户愿不愿意把真实意图告诉一个产品，取决于他信不信任它。信任的建立需要时间、需要一致性、需要产品在关键时刻做出正确的判断——这不是功能堆出来的，是每一次交互积累出来的。一个用户跟一款产品相处了两年，已经形成了一套协作的默契，这套默契无法被导出、无法被复制。<strong>数据可以迁移，信任不能迁移。</strong></p>
+
+    <h3>第三层（深层）：成为用户的认知基础设施</h3>
+    <p>当一款产品深度嵌入用户的工作流和思维方式，用户已经不再把它当工具，而是当成自己能力的延伸——这时候换产品不是「换个软件」，而是「失去自己的一部分」。</p>
+    <p>Excel之所以难以替代，并不只是因为功能，而是因为它在很长时间里塑造了一部分人的思考方式，人们用表格组织信息，用单元格拆解问题。但这种塑造仍然是工具层的，它可以被替代。Excel证明了「强工具依赖」，但还没到「认知不可替代」的终局。</p>
+
+    <div class="insight"><p>AI产品的终极护城河，是成为某一类用户的认知操作系统。到了这一步，用户不是在选择工具，是在维持自己的认知连续性。这是一场关于时间、信任和习惯的战争，不是一场关于技术的战争。</p></div>
+  </div>
+
+  <div class="divider">四</div>
+
+  <div class="section">
+    <div class="section-label">回归本质</div>
+    <h2>当AI把执行力商品化，人的价值收缩到有立场的地方</h2>
+
+    <p>技术从来不自动变成价值。蒸汽机出现了，需要有人决定它用来纺织还是运输；互联网出现了，需要有人决定它用来搜索还是社交；大模型出现了，同样需要有人决定它用来做什么、为谁做、做到什么程度。</p>
+    <p>技术解决「能不能」，产品解决「该不该」和「怎么做对用户有价值」。<strong>技术越强，这个判断层越重要</strong>，因为错误决策的成本更高。</p>
+    <p>当执行被外包干净，剩下来的是那些没有标准答案的部分。但我想在这里停一停——当执行被外包干净，很多人会发现，自己平时工作里真正属于「判断」的时间，远比想象中少。大量工作其实是信息搬运、流程推进、格式整理——这些不是判断，是执行的包装。</p>
+
+    <div class="insight"><p>所以技术变革真正的筛选，不是在淘汰懒人，而是在暴露一个更残酷的现实：你有没有真正在做判断？</p></div>
+
+    <p>留下来的能力，不是技能，是立场：</p>
+
+    <div class="cap">
+      <div class="cap-title">决策力与价值判断</div>
+      <p>在价值冲突中确立立场，在没有标准答案的地方做出有依据的选择。做产品决策最难的时刻，不是不知道怎么做，而是知道两种做法都有道理，必须选一个——那个选择背后，需要你真的持有某种立场，而不只是列出pros and cons。AI优化路径，但不质疑方向，更不承担后果。</p>
+    </div>
+
+    <div class="cap">
+      <div class="cap-title">审美与人味</div>
+      <p>当所有产品都能被AI快速构建，差距越来越体现在取舍上——什么该有，什么不该有，什么时候克制比堆功能更对。审美不是好看不好看，是对「什么对用户真正有价值」的直觉判断。这种直觉来自经验、共情、对人性的长期观察。AI可以模仿其形式，但无法生长出这个根。</p>
+    </div>
+
+    <div class="cap">
+      <div class="cap-title">驾驭AI的元认知</div>
+      <p>不是会用工具，而是清楚知道AI能力的边界在哪里。知道边界，才能判断哪些任务该交给AI、哪些判断必须自己做。这种能力必须持续更新——AI的边界本身在移动，今天做不到的，明天可能就能做到。对边界的认知跟不上，会产生两种同样危险的错误：该交给AI的还在自己扛，或者不该交给AI的已经放手了。</p>
+    </div>
+
+    <p>技术变革不是在消灭产品经理，而是在做一次筛选，留下来的是真正具备判断力和品味的人，被淘汰的是靠信息不对称和执行协调吃饭的人。这不是产品的终结，而是产品的进化——它回到了本来应该是的样子：一个真正在做判断的人，而不是一个在搬运信息的人。</p>
+  </div>
+
+  <div class="closing">
+    <p>回到最初那个问题：做产品的人，还剩下什么？</p>
+    <p>在产品设计层面，剩下的是对人的理解——在用户说不清楚之前就进入正确轨道的能力。在交互形态层面，剩下的是复杂创造性任务中那个无法被自动化的协作空间。在商业竞争层面，剩下的是时间和信任积累出来的认知连续性。在人本身的层面，剩下的是立场、处境、和承担后果的意愿。</p>
+    <p>AI拍平的是执行力。留下的，是越往人的内核走、越难被替代的那部分。</p>
+    <p class="final">不是因为AI不够强。是因为那部分东西的本质，不是能力，是存在。</p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  更新于 2026.4.18 &nbsp;·&nbsp; 李明睿
+</footer>
+
+</body>
+</html>
